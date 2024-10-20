@@ -5,11 +5,8 @@ import time_pb2_grpc
 def run():
     with grpc.insecure_channel('localhost:3002') as channel:
         stub = time_pb2_grpc.TimeStub(channel)
-
-        # Exemple : obtenir les films pour une date spécifique
-        date_request = time_pb2.Date(date="20151130")  # Utilisez 'Date' au lieu de 'DateRequest'
+        date_request = time_pb2.Date(date="20151130")  
         response = stub.ShowMovies(date_request)
-
         if response.date:
             print(f"Movies for {response.date}:")
             for movie in response.movies_id:
