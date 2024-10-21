@@ -30,7 +30,7 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
         user_bookings = []
 
         for booking in self.db:
-            if booking['userid'] == request.id:  # Check if booking belongs to the user
+            if booking['userid'] == request.id:  
                 for date_info in booking['dates']:
                     user_booking = booking_pb2._Booking(
                         date=date_info['date'],
