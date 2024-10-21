@@ -7,57 +7,41 @@ import json
 class BookingServicer(booking_pb2_grpc.BookingServicer):
 
     def __init__(self):
+        """Initialize the BookingService and load bookings from a JSON file."""
         with open('{}/data/bookings.json'.format("."), "r") as jsf:
             self.db = json.load(jsf)["bookings"]
     
-    def GetJson(self, request, context):
+    def GetJson(self, request, context) -> booking_pb2.BookingList:
+        """Retrieve all bookings in JSON format."""
         all_bookings = []
 
         for booking in self.db:
             for date_info in booking['dates']:
                 user_booking = booking_pb2._Booking(
-                    date=date_info['date'],  
-                    movies_id=booking_pb2.MovieList(movies_id=date_info['movies'])  
+                    date=date_info['date'],
+                    movies_id=booking_pb2.MovieList(movies_id=date_info['movies'])
                 )
                 all_bookings.append(user_booking)
 
         return booking_pb2.BookingList(bookings=all_bookings)
 
-
-        return booking_pb2.BookingList(bookings=all_bookings)
-
-    """
-    def GetBookings(self, request, context):
-        L = []        
-        for booking in self.db:
-            if booking['userid'] == request.id:
-                print("Bookings found!")
-                M = booking['dates']
-                for b in M:
-                    movies = booking_pb2.MovieList(movies_id = b["movies"])
-                    L.append(booking_pb2._Booking(date=b['date'], movies_id=movies))
-        print('LLLL = ', L)
-        bookings = booking_pb2.BookingList(bookings= L)
-        print('Bookings: ', bookings)
-        return L
-    """
-    def GetBookings(self, request, context):
+    def GetBookings(self, request, context) -> booking_pb2.BookingList:
+        """Retrieve bookings for a specific user."""
         user_bookings = []
 
         for booking in self.db:
-            if booking['userid'] == request.id:  
+            if booking['userid'] == request.id:  # Check if booking belongs to the user
                 for date_info in booking['dates']:
                     user_booking = booking_pb2._Booking(
-                        date=date_info['date'],  # Ajouter la date
-                        movies_id=booking_pb2.MovieList(movies_id=date_info['movies']) 
+                        date=date_info['date'],
+                        movies_id=booking_pb2.MovieList(movies_id=date_info['movies'])
                     )
                     user_bookings.append(user_booking)
 
         return booking_pb2.BookingList(bookings=user_bookings)
 
-
-
-    def AddBooking(self, request, context):
+    def AddBooking(self, request, context) -> booking_pb2.Empty:
+        """Add a new booking to the database."""
         new_booking = {
             'dates': [
                 {
@@ -67,14 +51,8 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
             ]
         }
 
-
-        self.db.append(new_booking)
-
-        return booking_pb2.Empty()
-
-
-  
-    
+        self.db.append(new_booking) 
+        return booking_pb2.Empty()   
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

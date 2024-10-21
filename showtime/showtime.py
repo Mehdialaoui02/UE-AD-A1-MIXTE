@@ -7,14 +7,16 @@ import json
 class TimeServicer(time_pb2_grpc.TimeServicer):
 
     def __init__(self):
+        """Initialize the TimeServicer and load schedule from a JSON file."""
         with open('data/times.json', "r") as jsf:
             self.db = json.load(jsf)["schedule"]
     
-    def GetTimes(self, request, context):
+    def GetTimes(self, request, context) -> time_pb2.Schedule:
+        """Retrieve the schedule of times."""
         schedule = time_pb2.Schedule()
         for entry in self.db:
             time_data = time_pb2.TimeData()
-            time_data.date.date = entry['date'] 
+            time_data.date.date = entry['date']
             for movie in entry['movies']:
                 movie_id = time_pb2.MovieID()
                 movie_id.id = movie  
@@ -22,7 +24,8 @@ class TimeServicer(time_pb2_grpc.TimeServicer):
             schedule.times.append(time_data)  
         return schedule  
 
-    def ShowMovies(self, request, context):
+    def ShowMovies(self, request, context) -> time_pb2.MovieList:
+        """Show movies available on a specific date."""
         movie_list = time_pb2.MovieList()
         for date in self.db:
             if date['date'] == request.date:

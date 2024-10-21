@@ -1,13 +1,15 @@
 import json
 
-def movie_with_id(_,info,_id):
+def movie_with_id(_, info: str, _id: int) -> dict:
+    """Retrieve a movie by its ID."""
     with open('{}/data/movies.json'.format("."), "r") as file:
         movies = json.load(file)
         for movie in movies['movies']:
             if movie['id'] == _id:
                 return movie
 
-def update_movie_rate(_,info,_id,_rate):
+def update_movie_rate(_, info: str, _id: int, _rate: float) -> dict:
+    """Update the rating of a movie by its ID."""
     newmovies = {}
     newmovie = {}
     with open('{}/data/movies.json'.format("."), "r") as rfile:
@@ -21,33 +23,36 @@ def update_movie_rate(_,info,_id,_rate):
         json.dump(newmovies, wfile)
     return newmovie
 
-def resolve_actors_in_movie(movie, info):
+def resolve_actors_in_movie(movie: dict, info: str) -> list:
+    """Retrieve actors in a given movie."""
     with open('{}/data/actors.json'.format("."), "r") as file:
         actors = json.load(file)
-        result = [actor for actor in actors['actors'] if movie['id'] in actor['films']]
-        return result
+        return [actor for actor in actors['actors'] if movie['id'] in actor['films']]
 
-def movie_with_title(_, info, _title) :
+def movie_with_title(_, info: str, _title: str) -> dict:
+    """Retrieve a movie by its title."""
     with open('{}/data/movies.json'.format("."), "r") as file:
         movies = json.load(file)
         for movie in movies['movies']:
             if movie['title'] == _title:
                 return movie
 
-def delete_movie_by_id(_, info, _id) : 
+def delete_movie_by_id(_, info: str, _id: int) -> dict:
+    """Delete a movie by its ID."""
     with open('{}/data/movies.json'.format("."), "r") as dfile:
         movies = json.load(dfile)['movies']
-        for movie in movies :
+        for movie in movies:
             if movie['id'] == _id:
                 movies.remove(movie)
                 return movie
 
-
-def write(movies):
+def write(movies: list) -> None:
+    """Write updated movies to the JSON file."""
     with open('{}/data/movies.json'.format("."), 'w') as f:
         json.dump(movies, f)
 
-def add_movie(_, info, _movie):
+def add_movie(_, info: str, _movie: dict) -> dict:
+    """Add a new movie if it doesn't already exist."""
     movieid = _movie['id']
     with open('{}/data/movies.json'.format("."), "r") as dfile:
         movies = json.load(dfile)['movies']
@@ -57,7 +62,3 @@ def add_movie(_, info, _movie):
         movies.append(_movie)
         write(movies)
         return _movie
-
-
-
-
