@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+service Time {
+    rpc GetTimes(Empty) returns (Schedule) {}
+    rpc ShowMovies(Date) returns (MovieList) {}
+}
+
+message MovieID {
+    string id = 1;
+}
+
+message MovieList {
+    repeated MovieID movies_id = 1;
+}
+
+message Date {
+    string date = 1;
+}
+
+message TimeData {
+    Date date = 1;
+    MovieList movies_id = 2;
+}
+
+message Schedule {
+    repeated TimeData times = 1;
+}
+
+message Empty {
+}
