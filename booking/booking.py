@@ -7,25 +7,19 @@ import json
 class BookingServicer(booking_pb2_grpc.BookingServicer):
 
     def __init__(self):
-        """Initialize the BookingService and load bookings from a JSON file."""
         with open('{}/data/bookings.json'.format("."), "r") as jsf:
             self.db = json.load(jsf)["bookings"]
     
     def save_db(self):
-        """Save the current state of the database to the JSON file."""
-        # Convert Protobuf objects to native Python types before saving
         for booking in self.db:
             for date_info in booking['dates']:
-                # If movies_id is a RepeatedScalarContainer, convert it to a list
                 if isinstance(date_info['movies'], booking_pb2.MovieList):
                     date_info['movies'] = list(date_info['movies'].movies_id)
         
-        # Write the updated bookings back to the JSON file
         with open('{}/data/bookings.json'.format("."), "w") as jsf:
             json.dump({"bookings": self.db}, jsf, indent=4)
     
     def GetJson(self, request, context) -> booking_pb2.BookingList:
-        """Retrieve all bookings in JSON format."""
         all_bookings = []
 
         for booking in self.db:
@@ -39,7 +33,6 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
         return booking_pb2.BookingList(bookings=all_bookings)
 
     def GetBookings(self, request, context) -> booking_pb2.BookingList:
-        """Retrieve bookings for a specific user."""
         user_bookings = []
 
         for booking in self.db:
