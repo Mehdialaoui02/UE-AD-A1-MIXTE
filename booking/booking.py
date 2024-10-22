@@ -51,9 +51,9 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
         date = request.date  
         movies = list(request.movies_id.movies_id)  
 
-        print (movies)
-        print(date)
-        print(userid)
+        print("Movies:", movies)
+        print("Date:", date)
+        print("UserID:", userid)
         
         user_found = False
         for booking in self.db:
@@ -62,12 +62,14 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
                 date_exists = False
                 for existing_date in booking['dates']:
                     if existing_date['date'] == date:
-                        existing_date['movies'].extend(movies)
+                        for movie in movies:
+                            if movie not in existing_date['movies']:
+                                existing_date['movies'].append(movie)
                         date_exists = True
                         break
                 if not date_exists:
-                    print("dddaate",date)
-                    print("mooovies",movies)
+                    print("Nouvelle date ajoutée:", date)
+                    print("Films ajoutés:", movies)
                     booking['dates'].append({
                         'date': date,
                         'movies': movies
@@ -75,9 +77,9 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
                 break
         
         if not user_found:
-            print("user found",userid)
-            print("daaate",date)
-            print("mmoovies",movies)
+            print("Nouvel utilisateur ajouté:", userid)
+            print("Date ajoutée:", date)
+            print("Films ajoutés:", movies)
             new_user_booking = {
                 'userid': userid,
                 'dates': [
@@ -93,6 +95,7 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
             json.dump({'bookings': self.db}, jsf, indent=4)
 
         return booking_pb2.Empty()
+
 
 
 

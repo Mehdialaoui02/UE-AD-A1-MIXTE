@@ -69,6 +69,19 @@
                     ]
                 }
             ]
+        },
+        {
+            "userid": "jo",
+            "dates": [
+                {
+                    "date": "20241021",
+                    "movies": [
+                        "movie1-id",
+                        "movie2-id",
+                        "movie3-id"
+                    ]
+                }
+            ]
         }
     ]
 }
