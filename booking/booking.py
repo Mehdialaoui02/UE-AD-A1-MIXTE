@@ -11,6 +11,19 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
         with open('{}/data/bookings.json'.format("."), "r") as jsf:
             self.db = json.load(jsf)["bookings"]
     
+    def save_db(self):
+        """Save the current state of the database to the JSON file."""
+        # Convert Protobuf objects to native Python types before saving
+        for booking in self.db:
+            for date_info in booking['dates']:
+                # If movies_id is a RepeatedScalarContainer, convert it to a list
+                if isinstance(date_info['movies'], booking_pb2.MovieList):
+                    date_info['movies'] = list(date_info['movies'].movies_id)
+        
+        # Write the updated bookings back to the JSON file
+        with open('{}/data/bookings.json'.format("."), "w") as jsf:
+            json.dump({"bookings": self.db}, jsf, indent=4)
+    
     def GetJson(self, request, context) -> booking_pb2.BookingList:
         """Retrieve all bookings in JSON format."""
         all_bookings = []
@@ -42,17 +55,49 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
 
     def AddBooking(self, request, context) -> booking_pb2.Empty:
         """Add a new booking to the database."""
-        new_booking = {
-            'dates': [
-                {
-                    'date': request.date,
-                    'movies': request.movies_id.movies_id  
-                }
-            ]
-        }
+        userid = request.userid  
+        date = request.date  
+        movies = list(request.movies_id.movies_id)  
 
-        self.db.append(new_booking) 
-        return booking_pb2.Empty()   
+        print (movies)
+        print(date)
+        print(userid)
+        
+        user_found = False
+        for booking in self.db:
+            if booking['userid'] == userid:
+                user_found = True
+                date_exists = False
+                for existing_date in booking['dates']:
+                    if existing_date['date'] == date:
+                        existing_date['movies'].extend(movies)
+                        date_exists = True
+                        break
+                if not date_exists:
+                    booking['dates'].append({
+                        'date': date,
+                        'movies': movies
+                    })
+                break
+        
+        if not user_found:
+            new_user_booking = {
+                'userid': userid,
+                'dates': [
+                    {
+                        'date': date,
+                        'movies': movies
+                    }
+                ]
+            }
+            self.db.append(new_user_booking)
+
+        with open('{}/data/bookings.json'.format("."), "w") as jsf:
+            json.dump({'bookings': self.db}, jsf, indent=4)
+
+        return booking_pb2.Empty()
+
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

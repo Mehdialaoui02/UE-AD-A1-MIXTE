@@ -46,7 +46,7 @@ class BookingStub(object):
                 _registered_method=True)
         self.AddBooking = channel.unary_unary(
                 '/Booking/AddBooking',
-                request_serializer=booking__pb2._Booking.SerializeToString,
+                request_serializer=booking__pb2.AddBookingRequest.SerializeToString,
                 response_deserializer=booking__pb2.Empty.FromString,
                 _registered_method=True)
 
@@ -87,7 +87,7 @@ def add_BookingServicer_to_server(servicer, server):
             ),
             'AddBooking': grpc.unary_unary_rpc_method_handler(
                     servicer.AddBooking,
-                    request_deserializer=booking__pb2._Booking.FromString,
+                    request_deserializer=booking__pb2.AddBookingRequest.FromString,
                     response_serializer=booking__pb2.Empty.SerializeToString,
             ),
     }
@@ -170,7 +170,7 @@ class Booking(object):
             request,
             target,
             '/Booking/AddBooking',
-            booking__pb2._Booking.SerializeToString,
+            booking__pb2.AddBookingRequest.SerializeToString,
             booking__pb2.Empty.FromString,
             options,
             channel_credentials,
