@@ -3,7 +3,7 @@ syntax = "proto3";
 service Booking {
     rpc GetJson(Empty) returns (BookingList) {}
     rpc GetBookings(UserID) returns (BookingList) {}
-    rpc AddBooking(_Booking) returns (Empty) {}
+    rpc AddBooking(AddBookingRequest) returns (Empty) {}
 }
 
 message UserID {
@@ -12,6 +12,12 @@ message UserID {
 
 message BookingList {
     repeated _Booking bookings = 1;
+}
+
+message AddBookingRequest {
+    string userid = 1;
+    string date = 2;
+    MovieList movies_id = 3;
 }
 
 
