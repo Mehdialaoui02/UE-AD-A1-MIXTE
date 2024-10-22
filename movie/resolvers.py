@@ -37,12 +37,12 @@ def movie_with_title(_, info: str, _title: str) -> dict:
             if movie['title'] == _title:
                 return movie
 
-def delete_movie_by_id(_, info: str, _id: int) -> dict:
+def delete_movie_by_id(_, info: str, _id: str) -> dict:
     """Delete a movie by its ID."""
     with open('{}/data/movies.json'.format("."), "r") as dfile:
         movies = json.load(dfile)['movies']
         for movie in movies:
-            if movie['id'] == _id:
+            if str(movie['id']) == str(_id):
                 movies.remove(movie)
                 return movie
 
