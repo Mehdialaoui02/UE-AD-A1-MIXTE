@@ -54,7 +54,6 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
         return booking_pb2.BookingList(bookings=user_bookings)
 
     def AddBooking(self, request, context) -> booking_pb2.Empty:
-        """Add a new booking to the database."""
         userid = request.userid  
         date = request.date  
         movies = list(request.movies_id.movies_id)  
