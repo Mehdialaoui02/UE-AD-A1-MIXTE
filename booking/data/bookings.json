@@ -55,6 +55,20 @@
                     "movies": []
                 }
             ]
+        },
+        {
+            "userid": "joe",
+            "dates": [
+                {
+                    "date": "20241021",
+                    "movies": [
+                        "movie1-id",
+                        "movie2-id",
+                        "movie1-id",
+                        "movie2-id"
+                    ]
+                }
+            ]
         }
     ]
 }

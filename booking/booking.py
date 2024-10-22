@@ -74,6 +74,8 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
                         date_exists = True
                         break
                 if not date_exists:
+                    print("dddaate",date)
+                    print("mooovies",movies)
                     booking['dates'].append({
                         'date': date,
                         'movies': movies
@@ -81,6 +83,9 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
                 break
         
         if not user_found:
+            print("user found",userid)
+            print("daaate",date)
+            print("mmoovies",movies)
             new_user_booking = {
                 'userid': userid,
                 'dates': [
