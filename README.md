@@ -80,7 +80,7 @@ Suivez ces étapes pour configurer et lancer le projet en local.
    - POST :
    ```
    - http://127.0.0.1:3004/adduser/new_user2
-   body = {"id": "new_user1", "name": "Chris Rivers", "last_active": 1360031010}
+   body = {"id": "new_user2", "name": "Chris Fouad", "last_active": 1360031010}
 
    -  http://127.0.0.1:3004/addmovie
    body = {
@@ -92,12 +92,12 @@ Suivez ces étapes pour configurer et lancer le projet en local.
    ```
    - DELETE :
    ```
-   http://192.168.145.229:3004/movie/delete/96798c08-d19b-4986-a05d-7da856efb697
+   http://127.0.0.1:3004/movie/delete/96798c08-d19b-4986-a05d-7da856efb697
    ```
 
    - gRPC :
       ```
-     - Pour Booking: http://localhost:3005
+     - Pour Booking: http://127.0.0.1:3005
           - GetJson : permet d'aficher toutes les réservation
           - GetBookings : permet d'afficher les réservations d'un utilisateur :
                dans ce cas là le body :
@@ -120,7 +120,7 @@ Suivez ces étapes pour configurer et lancer le projet en local.
 
 
 
-       - Pour showtime : http://localhost:3002
+       - Pour showtime : http://127.0.0.1:3002
       
           -GetTimes: permet d'afficher tous les dates des diférents movies
           - ShowMovies: permet d'afficher les movies à une telle date :
