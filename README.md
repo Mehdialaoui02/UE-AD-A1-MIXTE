@@ -10,6 +10,14 @@ Ce projet est une application de gestion de salle de cinéma, permettant la gest
 - Gestion des séances : Planifier les horaires et les salles
 - Gestion des réservations : Réserver des places pour une séance
 
+## Architecture du projet:
+Ce projet utilise une architecture Microservices, et se compose de quatre services:
+- User : Gère les opérations liées aux utilisateurs.
+- Movie : Gère les informations sur les films.
+- Booking : Gère les réservations de films.
+- Times : Fournit les informations sur les horaires des films.
+L'image ci-dessous explique en détail comment se fait la liaison entre ses différents microservices en utilisant différents types d'API:
+
 ## Prérequis
 
 Avant de lancer le projet, assurez-vous d'avoir installé les éléments suivants :
