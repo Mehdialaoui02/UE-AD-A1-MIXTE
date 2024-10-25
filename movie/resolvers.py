@@ -39,12 +39,30 @@ def movie_with_title(_, info: str, _title: str) -> dict:
 
 def delete_movie_by_id(_, info: str, _id: str) -> dict:
     """Delete a movie by its ID."""
-    with open('{}/data/movies.json'.format("."), "r") as dfile:
-        movies = json.load(dfile)['movies']
+    with open('./data/movies.json', "r") as dfile:
+        data = json.load(dfile)
+
+        # Vérifier si data est une liste ou un dictionnaire
+        if isinstance(data, list):
+            movies = data
+        elif isinstance(data, dict) and "movies" in data:
+            movies = data["movies"]
+        else:
+            raise ValueError("Unexpected data format in movies.json")
+
+        # Supprimer le film correspondant à l'ID
         for movie in movies:
             if str(movie['id']) == str(_id):
                 movies.remove(movie)
+                # Écrire les changements dans le fichier JSON
+                with open('./data/movies.json', "w") as dfile:
+                    json.dump(data, dfile, indent=4)
+                print("Movie removed:", movie)
                 return movie
+
+    print("Movie not found with id:", _id)
+    return {}
+
 
 def write(movies: list) -> None:
     """Write updated movies to the JSON file."""
