@@ -63,31 +63,24 @@ Suivez ces étapes pour configurer et lancer le projet en local.
    http://127.0.0.1:3004/json     : affiche tous les users
    http://127.0.0.1:3004/users/chris_rivers    :     afiche les détails de ce user
    http://127.0.0.1:3004/movie/a8034f44-aee4-44cf-b32c-74cf452aaaae  : afiche les détails des movies ainsi que la liste des acteurs.
-   http://127.0.0.1:3202/showtimes
-   http://127.0.0.1:3202/showmovies/20151130
-   http://127.0.0.1:3200/
-   http://127.0.0.1:3200/movies/39ab85e5-5e8e-4dc5-afea-65dc368bd7ab
+   http://127.0.0.1:3004/movie/title/Creed    : affiche les détails d'un film à partir de son titre
    ```
    - POST :
    ```
    - http://127.0.0.1:3004/adduser/new_user2
    body = {"id": "new_user1", "name": "Chris Rivers", "last_active": 1360031010}
 
-   - 
-
-
-   
-   http://127.0.0.1:3200/addmovie
+   -  http://127.0.0.1:3004/addmovie
    body = {
-      "title": "Inception",
-      "rating": 8.2,
+      "title": "InceptionPart2",
+      "rating": 8.6,
       "director": "Christopher Nolan",
       "id": "cool_custom_id_inception"
    }
    ```
    - DELETE :
    ```
-   http://127.0.0.1:3200/movies/720d006c-3a57-4b6a-b18f-9b713b073f3c
+   http://192.168.145.229:3004/movie/delete/96798c08-d19b-4986-a05d-7da856efb697
    ```
 
    - gRPC :
