@@ -16,7 +16,11 @@ Ce projet utilise une architecture Microservices, et se compose de quatre servic
 - Movie : Gère les informations sur les films.
 - Booking : Gère les réservations de films.
 - Times : Fournit les informations sur les horaires des films.
+  
 L'image ci-dessous explique en détail comment se fait la liaison entre ses différents microservices en utilisant différents types d'API:
+
+![Architecture de ce projet](image.png)
+
 
 ## Prérequis
 
