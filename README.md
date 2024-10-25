@@ -60,8 +60,9 @@ Suivez ces étapes pour configurer et lancer le projet en local.
    - Voici quelques endpoints que vous pouvez testez:
    - GET :
    ```
-   http://127.0.0.1:3203/
-   http://127.0.0.1:3203/movie-details/chris_rivers
+   http://127.0.0.1:3004/json     : affiche tous les users
+   http://127.0.0.1:3004/users/chris_rivers    :     afiche les détails de ce user
+   http://127.0.0.1:3004/movie/a8034f44-aee4-44cf-b32c-74cf452aaaae  : afiche les détails des movies ainsi que la liste des acteurs.
    http://127.0.0.1:3202/showtimes
    http://127.0.0.1:3202/showmovies/20151130
    http://127.0.0.1:3200/
@@ -69,6 +70,13 @@ Suivez ces étapes pour configurer et lancer le projet en local.
    ```
    - POST :
    ```
+   - http://127.0.0.1:3004/adduser/new_user2
+   body = {"id": "new_user1", "name": "Chris Rivers", "last_active": 1360031010}
+
+   - 
+
+
+   
    http://127.0.0.1:3200/addmovie
    body = {
       "title": "Inception",
@@ -81,3 +89,26 @@ Suivez ces étapes pour configurer et lancer le projet en local.
    ```
    http://127.0.0.1:3200/movies/720d006c-3a57-4b6a-b18f-9b713b073f3c
    ```
+
+   - gRPC :
+     - Pour Booking: http://localhost:3005
+          - GetJson : permet d'aficher toutes les réservation
+          - GetBookings : permet d'afficher les réservations d'un utilisateur :
+               dans ce cas là le body :
+                     {
+                      "id":"chris_rivers"
+                     }
+         - AddBooking : permet d'ajouter un booking:
+              dans ce cas là le body :
+                    {
+                    "userid": "1234",
+                    "date": "2024-10-23",
+                    "movies_id": {
+                      "movies_id": [
+                        "movie_1",
+                        "movie_2",
+                        "movie_3"
+                      ]
+                    }
+                  }
+              
