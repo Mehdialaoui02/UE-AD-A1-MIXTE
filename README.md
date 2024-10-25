@@ -19,7 +19,7 @@ Ce projet utilise une architecture Microservices, et se compose de quatre servic
   
 L'image ci-dessous explique en détail comment se fait la liaison entre ses différents microservices en utilisant différents types d'API:
 
-![Architecture de ce projet](image.png)
+![Architecture de ce projet](iimage.png)
 
 
 ## Prérequis
