@@ -23,7 +23,7 @@ Suivez ces étapes pour configurer et lancer le projet en local.
 1. **Clonez le dépôt**
 
    ```bash
-   git clone https://github.com/Mehdialaoui02/UE-AD-A1-REST.git
+   git clone https://github.com/Mehdialaoui02/UE-AD-A1-MIXTE.git
    ```
 
 2. **Installez les dépendanses**
