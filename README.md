@@ -111,4 +111,14 @@ Suivez ces étapes pour configurer et lancer le projet en local.
                       ]
                     }
                   }
+
+
+
+       - Pour showtime : http://localhost:3002
+      
+          -GetTimes: permet d'afficher tous les dates des diférents movies
+          - ShowMovies: permet d'afficher les movies à une telle date :
+               - dans ce cas on écrit dans body : {
+                                                    "date":"20151130"
+                                                   }
               
